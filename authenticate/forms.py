@@ -4,32 +4,72 @@ from django import forms
 
 
 class SignUpForm(UserCreationForm):
-    username = forms.CharField(label="",
-                               max_length=32, help_text="<small id='emailHelp' class='form-text text-muted'>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
-    first_name = forms.CharField(label="",
-                                 max_length=32, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
-    last_name = forms.CharField(label="",
-                                max_length=32, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}))
-    email = forms.EmailField(label="",
-                             max_length=50, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
-    password1 = forms.CharField(label="", help_text="<small><ul class='form-text text-muted'><li>Your password can\'t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can\'t be a commonly used password.</li><li>Your password can\'t be entirely numeric.</li></ul></small>",
-                                max_length=40, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
-    password2 = forms.CharField(label="", help_text="<small class='form-text text-muted'>Enter the same password as before, for verification.</small>",
-                                max_length=40, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}))
+    username = forms.CharField(
+        label="",
+        max_length=150,
+        help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
+    )
+    first_name = forms.CharField(
+        label="",
+        max_length=32,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'})
+    )
+    last_name = forms.CharField(
+        label="",
+        max_length=32,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})
+    )
+    email = forms.EmailField(
+        label="",
+        max_length=50,
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
+    )
+    password1 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
+        help_text=(
+            "<ul class='form-text text-muted'>"
+            "<li>Your password can't be too similar to your other personal information.</li>"
+            "<li>Your password must contain at least 8 characters.</li>"
+            "<li>Your password can't be a commonly used password.</li>"
+            "<li>Your password can't be entirely numeric.</li>"
+            "</ul>"
+        )
+    )
+    password2 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}),
+        help_text="Enter the same password as before, for verification."
+    )
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name',
-                  'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 
 class ChangePasswordForm(PasswordChangeForm):
-    old_password = forms.CharField(label="Old password:",
-                                   max_length=32, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    new_password1 = forms.CharField(label="New password:", help_text="<small><ul class='form-text text-muted'><li>Your password can\'t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can\'t be a commonly used password.</li><li>Your password can\'t be entirely numeric.</li></ul></small>",
-                                    max_length=32, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    new_password2 = forms.CharField(label="New password confirmation:",
-                                    max_length=32, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    old_password = forms.CharField(
+        label="Old password:",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
+    new_password1 = forms.CharField(
+        label="New password:",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        help_text=(
+            "<ul class='form-text text-muted'>"
+            "<li>Your password can't be too similar to your other personal information.</li>"
+            "<li>Your password must contain at least 8 characters.</li>"
+            "<li>Your password can't be a commonly used password.</li>"
+            "<li>Your password can't be entirely numeric.</li>"
+            "</ul>"
+        )
+    )
+    new_password2 = forms.CharField(
+        label="New password confirmation:",
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
